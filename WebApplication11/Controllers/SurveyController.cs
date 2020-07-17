@@ -76,7 +76,6 @@ namespace WebApplication11.Controllers
                 QuestionId = question.QuestionId,
                 QuestionNumber = question.QuestionNumber,
                 QuestionText = question.QuestionText
-                //QuestionsAndAnswers = questionsAndAnswersWithIndex
             };
         }
 
