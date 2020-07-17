@@ -1,0 +1,46 @@
+CREATE TABLE [dbo].[Answer] (
+    [AnswerId]   INT           IDENTITY (1, 1) NOT NULL,
+    [QuestionId] INT           NOT NULL,
+    [AnswerText] NVARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([AnswerId] ASC)
+);
+
+
+CREATE TABLE [dbo].[Interview] (
+    [InterviewId] INT           IDENTITY (1, 1) NOT NULL,
+    [SurveyId]    INT           NOT NULL,
+    [UserName]    NVARCHAR (50) NULL,
+    [Gender]      BIT           NULL,
+    [Age]         SMALLINT      NULL,
+    CONSTRAINT [PK_Interview] PRIMARY KEY CLUSTERED ([InterviewId] ASC)
+);
+
+CREATE TABLE [dbo].[Question] (
+    [QuestionId]   INT            IDENTITY (1, 1) NOT NULL,
+    [QuestionText] NVARCHAR (100) NULL,
+    [SurveyId]     INT            NULL,
+    CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED ([QuestionId] ASC)
+);
+
+
+CREATE TABLE [dbo].[Interview_Question_Answer] (
+    [InterviewId] INT NOT NULL,
+    [QuestionId]  INT NOT NULL,
+    [AnswerId]    INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([InterviewId] ASC, [QuestionId] ASC, [AnswerId] ASC),
+    CONSTRAINT [FK_Interview_Question_Answer_ToInterview] FOREIGN KEY ([InterviewId]) REFERENCES [dbo].[Interview] ([InterviewId]),
+    CONSTRAINT [FK_Interview_Question_Answer_ToQuestion] FOREIGN KEY ([QuestionId]) REFERENCES [dbo].[Question] ([QuestionId]),
+    CONSTRAINT [FK_Interview_Question_Answer_ToAnswer] FOREIGN KEY ([AnswerId]) REFERENCES [dbo].[Answer] ([AnswerId])
+);
+
+CREATE TABLE [dbo].[Result] (
+    [ResultId] INT        IDENTITY (1, 1) NOT NULL,
+    [SurveyId] NCHAR (10) NOT NULL,
+    CONSTRAINT [PK_Result] PRIMARY KEY CLUSTERED ([ResultId] ASC)
+);
+CREATE TABLE [dbo].[Survey] (
+    [SurveyId]   INT           IDENTITY (1, 1) NOT NULL,
+    [ServeyName] NVARCHAR (50) NULL,
+    CONSTRAINT [PK_Survey] PRIMARY KEY CLUSTERED ([SurveyId] ASC)
+);
+
